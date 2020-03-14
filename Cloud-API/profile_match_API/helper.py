@@ -45,9 +45,9 @@ def CheckIfDuplicate(kind,attribute,value):
     query.add_filter(attribute, '=', str(value))
     object = list(query.fetch())
     if object:
-        return 1
+        return object[0].key.id
     else:
-        return 0
+        return None
 
 def Forbidden403PUT(object1,object2):
     error_message = f'The {object1} is already assigned to this {object2}'
@@ -69,6 +69,7 @@ def GetUserID(id_token):
 
 def GetToken(req):
     bearer_token = request.headers['Authorization']
+    print(bearer_token)
     token = bearer_token.rsplit(' ', 1)[1]
     return token
 
@@ -76,6 +77,21 @@ def GetEmail(id_token):
     decoded = decodeIDToken(id_token)
     email = decoded.get('email')
     return email
+
+def DeleteUser(profileid):
+    # delete profile matches relationships
+    query1 = client.query(kind='profile_matches')
+    query2 = client.query(kind='profile_matches')
+    query1.add_filter('match_id1', '=', profileid)
+    query2.add_filter('match_id2', '=', profileid)
+    results = list(query1.fetch())
+    results2 = list(query2.fetch())
+    for e in results:
+        profile_match_key = client.key("profile_matches", e.key.id)
+        client.delete(profile_match_key)
+    for e in results2:
+        profile_match_key = client.key("profile_matches", e.key.id)
+        client.delete(profile_match_key)
 
 def PaginationResultsAndLink(url,page,entity):
     offset = (page-1)*config.LIMIT
@@ -112,6 +128,7 @@ def queryRelationship(userid):
             match = list(profiles.fetch())
             match[0]["date"] = entity["date"]
             match[0]['matchtype'] = entity["match_type"]
+            match[0]["id"] = match[0].key.id
             listofMatches.extend(match)
         elif entity['match_id1'] == userid:
             profiles = client.query(kind='profiles')
@@ -119,6 +136,7 @@ def queryRelationship(userid):
             match = list(profiles.fetch())
             match[0]["date"] = entity["date"]
             match[0]['matchtype'] = entity["match_type"]
+            match[0]["id"] = match[0].key.id
             listofMatches.extend(match)
     for entity in results2:
         if entity['match_id2'] == userid:
@@ -127,6 +145,7 @@ def queryRelationship(userid):
             match = list(profiles.fetch())
             match[0]["date"] = entity["date"]
             match[0]['matchtype'] = entity["match_type"]
+            match[0]["id"] = match[0].key.id
             listofMatches.extend(match)
 
         elif entity['match_id1'] != userid:
@@ -135,6 +154,7 @@ def queryRelationship(userid):
             match = list(profiles.fetch())
             match[0]["date"] = entity["date"]
             match[0]['matchtype'] = entity["match_type"]
+            match[0]["id"] = match[0].key.id
             listofMatches.extend(match)
 
     return listofMatches

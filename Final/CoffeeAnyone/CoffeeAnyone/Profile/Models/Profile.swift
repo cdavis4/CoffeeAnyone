@@ -1,0 +1,40 @@
+import SwiftUI
+import Combine
+
+//class for Profile Data
+final class ProfileBody: ObservableObject, Codable {
+      var name: String = UserDefaults.standard.string(forKey: "name") ?? ""
+      var user_id: String = UserDefaults.standard.string(forKey: "userid") ?? ""
+      var statement: String = UserDefaults.standard.string(forKey: "statement") ?? ""
+      var bodyType: String = UserDefaults.standard.string(forKey: "bodytype") ?? ""
+      var age: String = UserDefaults.standard.string(forKey: "age") ?? ""
+      var height:String = UserDefaults.standard.string(forKey: "height") ?? ""
+      var hasKids: String = UserDefaults.standard.string(forKey: "haskids") ?? ""
+      var gender: String = UserDefaults.standard.string(forKey: "gender") ?? ""
+      var status: String = UserDefaults.standard.string(forKey: "status") ?? ""
+      var occupation: String = UserDefaults.standard.string(forKey: "occupation") ?? ""
+      var education: String = UserDefaults.standard.string(forKey: "education") ?? ""
+      var city: String = UserDefaults.standard.string(forKey: "city") ?? ""
+      var state: String = UserDefaults.standard.string(forKey: "state") ?? ""
+      var hobbies1: String = UserDefaults.standard.string(forKey: "hobbies1") ?? ""
+      var hobbies2: String = UserDefaults.standard.string(forKey: "hobbies2") ?? ""
+      var hobbies3: String = UserDefaults.standard.string(forKey: "hobbies3") ?? ""
+      var hobbies4: String = UserDefaults.standard.string(forKey: "hobbies4") ?? ""
+      var hobbies5: String = UserDefaults.standard.string(forKey: "hobbies5") ?? ""
+      var bodyTypePref: String = UserDefaults.standard.string(forKey: "bodytypePref") ?? ""
+      var genderPref: String = UserDefaults.standard.string(forKey: "genderPref") ?? ""
+      var educationPref: String = UserDefaults.standard.string(forKey: "educationPref") ?? ""
+      var agePref: String = UserDefaults.standard.string(forKey: "agePref") ?? "26-33"
+      var IE:String = UserDefaults.standard.string(forKey: "IE") ?? ""
+      var SN:String = UserDefaults.standard.string(forKey: "SN") ?? ""
+      var JP:String = UserDefaults.standard.string(forKey: "JP") ?? ""
+      var personalitytype:String = UserDefaults.standard.string(forKey: "personalitytype") ?? ""
+      var lovelang1:String = UserDefaults.standard.string(forKey: "WA") ?? "0"
+      var lovelang2:String = UserDefaults.standard.string(forKey: "QT") ?? "0"
+      var lovelang3:String = UserDefaults.standard.string(forKey: "RG") ?? "0"
+      var lovelang4:String = UserDefaults.standard.string(forKey: "AS") ?? "0"
+      var lovelang5:String = UserDefaults.standard.string(forKey: "PT") ?? "0"
+      var photo_url:String = UserDefaults.standard.string(forKey: "photo_url") ?? ""
+      var email:String = UserDefaults.standard.string(forKey: "email") ?? ""
+    
+}
